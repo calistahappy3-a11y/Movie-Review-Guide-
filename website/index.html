@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Review Website 🎬</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Movie Review Website 🎬</h1>
+
+    <nav class="menu">
+        <button onclick="showSection('homeSection')">Home</button>
+        <button onclick="showSection('searchSection')">Search Movie</button>
+        <button onclick="showSection('reviewSection')">Add Review</button>
+        <button onclick="showSection('sentimentSection')">Sentiment Analysis</button>
+        <button onclick="showSection('topReviews')">Top 5 Movies</button>
+        <button onclick="showSection('worstReviews')">Worst 5 Movies</button>
+        <button onclick="showSection('compareMoviesSection')">Compare Movies</button>
+    </nav>
+
+    <div class="container">
+        <div id="homeSection" class="tabContent" style="display:block; text-align:center;">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <h1 style="margin-bottom: 0.5em;">ALL MOVIES</h1>
+                <select id="sortOrder" onchange="sortMovies()" style="padding: 5px;">
+                    <option value="default">Sort</option>
+                    <option value="asc">A–Z</option>
+                    <option value="desc">Z–A</option>
+                </select>
+            </div>
+
+            <ul id="allMoviesList" style="list-style-type: none; padding-left: 0;"></ul>
+
+        </div>
+        <section class="tabContent" id="searchSection" style="display:none;">
+            <input type="text" id="searchInput" placeholder="Search for a movie...">
+            <button type="button" onclick="searchMovie()">Search</button>
+            <div id="searchResults"></div>
+        </section>
+
+        <section class="tabContent" id="reviewSection" style="display: none;">
+            <div id="reviewInputContainer">
+                <input type="text" id="movieNameInput" placeholder="Movie Name" />
+                <textarea id="reviewTextInput" placeholder="Write your review..."></textarea>
+                <button onclick="addReview()">Add Review</button>
+            </div>
+            <div id="reviewConfirmContainer" style="display:none;">
+                <p id="suggestionText"></p>
+                <button onclick="confirmSuggestion(true)">Yes</button>
+                <button onclick="confirmSuggestion(false)">No</button>
+            </div>
+        </section>
+
+        <section class="tabContent" id="sentimentSection" style="display: none;">
+            <h3>Sliding Window Sentiment Analysis</h3>
+            <div id="topSentiment" style="margin-top: 20px;"></div>
+            <div id="worstSentiment" style="margin-top: 20px;"></div>
+        </section>
+
+        <section class="tabContent" id="topReviews" style="display: none;">
+            <h3>Top 5 Movies</h3>
+            <ul id="topMoviesList"></ul>
+        </section>
+
+        <section class="tabContent" id="worstReviews" style="display: none;">
+            <h3>Worst 5 Movies</h3>
+            <ul id="worstMoviesList"></ul>
+        </section>
+        <section class="tabContent" id="compareMoviesSection" style="display: none;">
+            <h3>Compare Two Movies 🎥</h3>
+            <div style="margin-bottom: 15px;">
+                <input type="text" id="compareMovie1" placeholder="Enter first movie name">
+                <input type="text" id="compareMovie2" placeholder="Enter second movie name">
+                <button onclick="compareMovies()">Compare</button>
+            </div>
+            <div id="comparisonResult" style="margin-top: 20px;"></div>
+        </section>
+
+    </div>
+
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
